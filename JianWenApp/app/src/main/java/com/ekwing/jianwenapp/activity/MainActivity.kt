@@ -1,30 +1,30 @@
 package com.ekwing.jianwenapp.activity
 
-import android.app.Dialog
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.NonNull
-import androidx.appcompat.app.AlertDialog
+import android.view.View
+import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat.recreate
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ekwing.jianwenapp.R
 import com.ekwing.jianwenapp.adapter.MyRecyclerViewAdapter
 import com.ekwing.jianwenapp.bean.NewData
 import com.ekwing.jianwenapp.util.DataUtil
 import com.ekwing.jianwenapp.util.HttpClient.Companion.sendOkHttpRequest
-import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
 import kotlin.collections.ArrayList
-import android.app.AlertDialog as AlertDialog1
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnClickListener {
+
 
     var dataNews = NewData()
 
@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(tool_bar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
         val mode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         getInternetData(DataUtil.TOPURL)
         navListener(mode)
@@ -112,10 +114,11 @@ class MainActivity : AppCompatActivity() {
      * 请求网络数据
      */
     private fun getInternetData(url: String) {
-        sendOkHttpRequest(DataUtil.TOPURL, object : Callback {
+        sendOkHttpRequest(url, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 
             }
+
             override fun onResponse(call: Call, response: Response) {
                 val mGson = Gson()
                 dataNews =
@@ -130,17 +133,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_right,menu)
-       return true
+        menuInflater.inflate(R.menu.menu_right, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val dialog : android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+        val dialog: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
         dialog.setMessage(R.string.helpdoc)
-        dialog.setNegativeButton("取消",null)
-            when (item.itemId){
+        dialog.setNegativeButton("取消", null)
+        when (item.itemId) {
             R.id.jianjie -> dialog.show()
+            android.R.id.home -> draw_layout.openDrawer(Gravity.LEFT)
         }
         return true
     }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            android.R.id.home -> draw_layout.openDrawer(Gravity.RIGHT)
+        }
+    }
+
 }

@@ -21,11 +21,11 @@ class Main2Activity : AppCompatActivity() {
         Glide.with(this).load(image).into(image_top)
         //标题展示
         coll_too_bar.title = title
+        //设置toolbar
+        setSupportActionBar(toolbar_top)
         //顶部返回按钮
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        //设置toolbar
-        setSupportActionBar(tool_bar)
         //加载url
         web_view.settings.javaScriptEnabled=false
         web_view.settings.defaultTextEncodingName="utf-8"
