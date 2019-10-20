@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NewSletter</string>
+    <string name="helpdoc">欢迎使用简闻app，该app旨在为你打造一个简洁无广告的新闻类应用，点开左侧导航栏，您可以选择自己想要看的新闻类型，
+        默认新闻类型是科技类新闻，点击某一项将为您带来相关的新闻。新闻是精选之后的，
+        为了避免您读到垃圾新闻，每类新闻的数量是有限的，节约您的时间，您可以更改主题，祝你使用愉快</string>
+</resources>
