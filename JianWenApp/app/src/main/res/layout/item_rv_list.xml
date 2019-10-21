@@ -20,6 +20,7 @@
         android:background="@color/colorPrimary"/>
     <TextView
         android:id="@+id/tv_show"
+        android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

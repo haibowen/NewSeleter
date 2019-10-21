@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 dataNews.result!!.data as ArrayList<NewData.ResultBean.DataBean>
             )
             (rv_list.adapter as MyRecyclerViewAdapter).notifyDataSetChanged()
-
         }
     }
 
