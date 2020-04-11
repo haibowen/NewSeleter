@@ -1,15 +1,19 @@
 package com.ekwing.jianwenapp.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ekwing.jianwenapp.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main2.*
+
 
 class Main2Activity : AppCompatActivity() {
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -27,13 +31,15 @@ class Main2Activity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         //加载url
-        web_view.settings.javaScriptEnabled=false
-        web_view.settings.defaultTextEncodingName="utf-8"
+        web_view.webChromeClient = WebChromeClient()
+        web_view.webViewClient = WebViewClient()
+        web_view.settings.javaScriptEnabled = true
+        web_view.settings.defaultTextEncodingName = "utf-8"
         web_view.loadUrl(content)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return true
